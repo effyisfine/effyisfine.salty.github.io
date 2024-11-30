@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>짠것들의연결망</title>
+
+    <link rel="icon" href="/images/source/favicon.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/script.js"></script>
+
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="view_area">
+            <!-- 책자영역 -->
+            <section class="view_book">
+                <img src="/images/page01.jpg" alt="">
+
+                <div class="open_menu"></div>
+                <div class="info_page">
+                    <span class="now">1</span>
+                    <span>-100</span>
+                </div>
+            </section>
+
+            <!-- 컨트롤 -->
+            <section class="control">
+                <div class="btn_prev">
+                    <i></i>
+                </div>
+                <div class="btn_next">
+                    <i></i>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- 버거메뉴 -->
+        <section class="menu">
+            <div class="menu_area">
+                <div class="move_box">
+                    <div class="move_con">
+                        <input type="number">
+                        <span>페이지 펼치기</span>
+                    </div>
+                </div>
+                <div class="menu_box">
+                    <dl>
+                        <dt>큐레토리얼에세이</dt>
+                        <dd>03</dd>
+                    </dl>
+                    <dl>
+                        <dt>필드트립</dt>
+                        <dd>11</dd>
+                    </dl>
+                    <dl>
+                        <dt>오늘의 타이완</dt>
+                        <dd>13</dd>
+                    </dl>
+                    <dl>
+                        <dt>리포트</dt>
+                        <dd>39</dd>
+                    </dl>
+                    <dl>
+                        <dt>크레딧</dt>
+                        <dd>69</dd>
+                    </dl>
+                    <div class="site">
+                        <p>실험실 C 둘러보기 🔍</p>
+                        <div class="site_list">
+                            <a href="https://linktr.ee/labc2018" target="_blank">
+                                <i class="link"></i>
+                                <span>Linktree</span>
+                            </a>
+                            <a href="http://m.site.naver.com/12VgI" target="_blank">
+                                <i class="notion"></i>
+                                <span>@실험실 C 노션</span>
+                            </a>
+                            <a href="https://www.instagram.com/labc.3f/" target="_blank">
+                                <i class="insta"></i>
+                                <span>실험실 C 인스타그램</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="close_menu"></div>
+            </div>
+        </section>
+    </div>
+</body>
+
+
+<script>
+    // 페이지 이동 스크립트
+    const imgElement = document.querySelector('.view_book img');
+    const btnPrev = document.querySelector('.btn_prev');
+    const btnNext = document.querySelector('.btn_next');
+    const nowSpan = document.querySelector('.info_page .now'); // 현재 페이지 표시하는 span
+
+    btnPrev.addEventListener('click', () => {
+        changePage(-1);
+    });
+
+    btnNext.addEventListener('click', () => {
+        changePage(1);
+    });
+
+    function changePage(step) {
+        const currentSrc = imgElement.src;
+        const currentPageNumber = parseInt(currentSrc.match(/page(\d{2})\.jpg/)[1], 10);
+        let newPageNumber = currentPageNumber + step;
+
+        // 최소값 설정
+        if (newPageNumber < 1) {
+            newPageNumber = 1;
+        }
+
+        // 새로운 페이지 번호 형식 맞춤 (01, 02, ...)
+        const formattedPageNumber = newPageNumber.toString().padStart(2, '0');
+        imgElement.src = currentSrc.replace(/page\d{2}\.jpg/, `page${formattedPageNumber}.jpg`);
+
+        // span.now에 1, 2, 3 형식으로 업데이트
+        nowSpan.textContent = newPageNumber;
+    }
+
+
+
+
+
+
+
+    // 버거메뉴 스크립트
+    const menu = document.querySelector('.menu');
+    const openMenuButton = document.querySelector('.open_menu');
+    const closeMenuButton = document.querySelector('.close_menu');
+
+    // 메뉴 열기
+    openMenuButton.addEventListener('click', () => {
+        menu.style.display = 'block';
+    });
+
+    // 메뉴 닫기
+    closeMenuButton.addEventListener('click', () => {
+        menu.style.display = 'none';
+    });
+</script>
+
+</html>
